@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 require('./roles-model.js');
 
 const SINGLE_USE_TOKENS = !!process.env.SINGLE_USE_TOKENS;
-const TOKEN_EXPIRE = process.env.TOKEN_LIFETIME || '5m';
+const TOKEN_EXPIRE = process.env.TOKEN_LIFETIME || '1h';
 const SECRET = process.env.SECRET || 'foobar';
 
 const usedTokens = new Set();

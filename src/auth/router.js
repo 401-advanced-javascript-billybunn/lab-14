@@ -1,17 +1,13 @@
 'use strict';
 
-/*
-echo '{"username":"Jon", "password":"bunnies"}' | http :3000/signup
-
-http post :3000/signin "Authorization: Bearer token"
-*/
-
 const express = require('express');
 const authRouter = express.Router();
 
 const User = require('./users-model.js');
 const auth = require('./middleware.js');
 const oauth = require('./oauth/google.js');
+
+const newRoutes = require('./new-routes.js');
 
 authRouter.post('/signup', (req, res, next) => {
   let user = new User(req.body);
@@ -39,9 +35,11 @@ authRouter.get('/oauth', (req,res,next) => {
     .catch(next);
 });
 
-authRouter.post('/key', auth, (req,res,next) => {
+authRouter.post('/key', auth(), (req,res,next) => {
   let key = req.user.generateKey();
   res.status(200).send(key);
 });
+
+authRouter.use(newRoutes);
 
 module.exports = authRouter;
