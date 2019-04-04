@@ -13,6 +13,13 @@ const express = require('express');
 const router = express.Router();
 
 const auth = require('./middleware.js');
+const Role = require('./roles-model.js');
+
+// to populate roles collection in mongoDB
+router.post('/roles', (req,res,next) => {
+  let role = new Role(req.body);
+  role.save();
+});
 
 // router.get('/public-stuff') should be visible by anyone
 router.get('/public-stuff', auth(),(req,res,next) => {
