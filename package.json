@@ -1,0 +1,37 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test-watch": "jest --watchAll",
+    "test": "jest",
+    "lint": "eslint '**/*.js'",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "cors": "^2.8.4",
+    "debug": "^4.1.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "jest": "^24.7.1",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb-memory-server": "^2.7.3",
+    "mongoose": "^5.3.13",
+    "mongoose-schema-jsonschema": "^1.1.15",
+    "morgan": "^1.9.0",
+    "require-directory": "^2.1.1",
+    "supertest": "^3.3.0",
+    "swagger-ui-express": "^4.0.2"
+  }
+}
