@@ -2,8 +2,15 @@
 
 /*
 echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
+echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
+echo '{"username":"bob", "password":"bob", "role":"superuser"}' | http :3000/signup
+
+bob:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZiZmZlYTc5ZDAwMzdmM2EzM2ZhNCIsImNhcGFiaWxpdGllcyI6WyJjcmVhdGUiLCJyZWFkIiwidXBkYXRlIiwiZGVsZXRlIl0sInR5cGUiOiJ1c2VyIiwiaWF0IjoxNTU0NDMxOTk4LCJleHAiOjE1NTQ0MzU1OTh9.y9FjILlUTIkpwBpDtmnIfMKst0-gNVjDDdwPmmW-wRY
 
 http post :3000/signin "Authorization: Bearer token"
+
+http :3000/hidden-stuff "Authorization: Bearer 
 
 dude forever key: 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTY4ZDE5MDhlYTY0MmRlYmI0MzNkMyIsImNhcGFiaWxpdGllcyI6WyJyZWFkIl0sInR5cGUiOiJrZXkiLCJpYXQiOjE1NTQ0MTk2NzN9.I60vjfKmRyGT9HFlPc3YAKqAEL3H0tGfNiwBGbV-MZ8
@@ -23,7 +30,7 @@ router.post('/roles', (req,res,next) => {
 });
 
 // router.get('/public-stuff') should be visible by anyone
-router.get('/public-stuff', auth(),(req,res,next) => {
+router.get('/public-stuff', (req,res,next) => {
   res.status(200).send('Here\'s the public stuff.');
 });
 
@@ -33,17 +40,17 @@ router.get('/hidden-stuff', auth(),(req,res,next) => {
 });
 
 // router.get('/something-to-read') should require the read capability
-router.get('/something-to-read', auth(),(req,res,next) => {
+router.get('/something-to-read', auth('read'),(req,res,next) => {
   res.status(200).send('Here\'s something for you to read.');
 });
 
 // router.post('/create-a-thing) should require the create capability
-router.post('/create-a-thing', auth(),(req,res,next) => {
+router.post('/create-a-thing', auth('create'),(req,res,next) => {
   res.status(200).send('You can create a thing.');
 });
 
 // router.put('/update) should require the update capability
-router.put('/update', auth(),(req,res,next) => {
+router.put('/update', auth('update'),(req,res,next) => {
   res.status(200).send('You can update things.');
 });
 
@@ -58,7 +65,7 @@ router.delete('/bye-bye', auth('delete'),(req,res,next) => {
 });
 
 // router.get('/everything') should require the superuser capability
-router.get('/everything', auth(),(req,res,next) => {
+router.get('/everything', auth('superuser'),(req,res,next) => {
   res.status(200).send('You can do EVERYTHING.');
 });
 
