@@ -16,7 +16,18 @@ const users = new mongoose.Schema({
   password: {type:String, required:true},
   email: {type: String},
   role: {type: String, default:'user', enum: ['admin','editor','user']},
+}, {toObject:{virtuals:true}, toJSON:{virtuals:true}});
+
+users.virtual('roles', {
+  ref: 'roles',
+  localField: 'role',
+  foreignField: 'role',
+  justOne: false,
 });
+
+// echo '{"role":"admin", "capabilities":["create","read","update","delete"]}' | http :3000/roles
+// echo '{"role":"editor", "capabilities":["create", "read", "update"]}' | http :3000/roles
+// echo '{"role":"user", "capabilities":["read"]}' | http :3000/roles
 
 const capabilities = {
   admin: ['create','read','update','delete'],
@@ -28,6 +39,7 @@ users.pre('save', function(next) {
   bcrypt.hash(this.password, 10)
     .then(hashedPassword => {
       this.password = hashedPassword;
+      this.populate('role');
       next();
     })
     .catch(error => {throw new Error(error);});

@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-echo '{"username":"Jon", "password":"bunnies"}' | http :3000/signup
+echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
 
 http post :3000/signin "Authorization: Bearer token"
 
@@ -19,6 +19,7 @@ const Role = require('./roles-model.js');
 router.post('/roles', (req,res,next) => {
   let role = new Role(req.body);
   role.save();
+  res.status(200).send('Saved a new role to the db');
 });
 
 // router.get('/public-stuff') should be visible by anyone
@@ -47,12 +48,12 @@ router.put('/update', auth(),(req,res,next) => {
 });
 
 // router.patch('/jp) should require the update capability
-router.patch('/jp', auth(),(req,res,next) => {
+router.patch('/jp', auth('update'),(req,res,next) => {
   res.status(200).send('You can also update things.');
 });
 
 // router.delete('/bye-bye) should require the delete capability
-router.delete('/bye-bye', auth(),(req,res,next) => {
+router.delete('/bye-bye', auth('delete'),(req,res,next) => {
   res.status(200).send('You can delete things.');
 });
 
