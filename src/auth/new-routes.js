@@ -5,15 +5,17 @@ echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/si
 echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
 echo '{"username":"bob", "password":"bob", "role":"superuser"}' | http :3000/signup
 
-bob:
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZiZmZlYTc5ZDAwMzdmM2EzM2ZhNCIsImNhcGFiaWxpdGllcyI6WyJjcmVhdGUiLCJyZWFkIiwidXBkYXRlIiwiZGVsZXRlIl0sInR5cGUiOiJ1c2VyIiwiaWF0IjoxNTU0NDMxOTk4LCJleHAiOjE1NTQ0MzU1OTh9.y9FjILlUTIkpwBpDtmnIfMKst0-gNVjDDdwPmmW-wRY
+superuser guy key:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZjNzFkYjE3YTAwM2FhYjUyMjEyZiIsInR5cGUiOiJrZXkiLCJpYXQiOjE1NTQ2NDA4MzB9.lNpU_iMPXzIJtXVmRqACmmr2ZvPMUlY3R8QkuNQkKqE
+
+editor jerry key: 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZiZDIwNzJkMjc0MzZmOTRkOWVkMyIsInR5cGUiOiJrZXkiLCJpYXQiOjE1NTQ2NDE5NjF9.3XQ7brtY8iubbx3mB49ccX0l_5ODvo-LaO4Iy23Rgbs
 
 http post :3000/signin "Authorization: Bearer token"
 
 http :3000/hidden-stuff "Authorization: Bearer 
 
-dude forever key: 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTY4ZDE5MDhlYTY0MmRlYmI0MzNkMyIsImNhcGFiaWxpdGllcyI6WyJyZWFkIl0sInR5cGUiOiJrZXkiLCJpYXQiOjE1NTQ0MTk2NzN9.I60vjfKmRyGT9HFlPc3YAKqAEL3H0tGfNiwBGbV-MZ8
+
 */
 
 const express = require('express');

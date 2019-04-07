@@ -26,23 +26,23 @@ const users = new mongoose.Schema({
   role: { type: String, default: 'user', enum: ['superuser', 'admin', 'editor', 'user'] },
   // capabilities: {type:Array},
 }, {
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true },
-  });
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true },
+});
 
-users.virtual('stuffICanDo', {
+users.virtual('abilities', {
   ref: 'roles',
   localField: 'role',
   foreignField: 'role',
   justOne: false,
 });
 
-const capabilities = {
-  superuser: ['create', 'read', 'update', 'delete', 'superuser'],
-  admin: ['read', 'update', 'delete'],
-  editor: ['create', 'read', 'update'],
-  user: ['read'],
-};
+// const capabilities = {
+//   superuser: ['create', 'read', 'update', 'delete', 'superuser'],
+//   admin: ['read', 'update', 'delete'],
+//   editor: ['create', 'read', 'update'],
+//   user: ['read'],
+// };
 
 users.pre('save', function (next) {
   bcrypt.hash(this.password, 10)
@@ -56,8 +56,8 @@ users.pre('save', function (next) {
 users.pre('findOne', function () {
   try {
     console.log('after finding');
-    // this.populate('stuffICanDo');
-    this.populate('stuffICanDo', 'capabilities');
+    // this.populate('abilities');
+    this.populate('abilities', 'capabilities');
   }
   catch (error) { console.log('Find Error', error); }
 });
@@ -128,7 +128,10 @@ users.methods.generateToken = function (type) {
 // takes a capability: 'read', create', 'update', 'delete'
 // returns true/false depending on if the user has that capability
 users.methods.can = function (capability) {
-  return capabilities[this.role].includes(capability);
+  console.log(`This route requires the "${capability}" capability to access.
+User "${this.username}" has the following abilities: ${this.abilities[0].capabilities}`);
+
+  return this.abilities[0].capabilities.includes(capability);
 };
 
 users.methods.generateKey = function () {
