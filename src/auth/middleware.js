@@ -35,10 +35,8 @@ module.exports = (capability) => {
     }
 
     function _authBearer(authString) {
-      console.log('_authBearer');
       return User.authenticateToken(authString)
         .then(user => {
-          // console.log('_authBearer user that was found', user.abilities[0].capabilities);
           return _authenticate(user);
         })
         .catch(_authError);

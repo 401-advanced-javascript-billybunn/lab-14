@@ -24,7 +24,6 @@ const users = new mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String },
   role: { type: String, default: 'user', enum: ['superuser', 'admin', 'editor', 'user'] },
-  // capabilities: {type:Array},
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
@@ -87,10 +86,8 @@ users.statics.authenticateToken = function (token) {
 
   try {
     let parsedToken = jwt.verify(token, SECRET);
-    // console.log('parsedToken', parsedToken);
     (SINGLE_USE_TOKENS) && parsedToken.type !== 'key' && usedTokens.add(token);
     let query = { _id: parsedToken.id };
-    // console.log('inside authenticateToken');
     return this.findOne(query);
   } catch (e) { throw new Error('Invalid Token'); }
 

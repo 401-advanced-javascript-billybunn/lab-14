@@ -1,9 +1,18 @@
 'use strict';
 
 /*
-echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
-echo '{"username":"jerry", "password":"jerry", "role":"editor"}' | http :3000/signup
-echo '{"username":"bob", "password":"bob", "role":"superuser"}' | http :3000/signup
+HTTPie CLI commands to add some roles:
+echo '{"role":"user", "capabilities":["read"]}' | http :3000/roles
+echo '{"role":"editor", "capabilities":["create", "read", "update"]}' | http :3000/roles
+echo '{"role":"admin", "capabilities":["create","read","update","delete"]}' | http :3000/roles
+echo '{"role":"superuser", "capabilities":["create","read","update","delete","superuser"]}' | http :3000/roles
+
+
+HTTPie CLI commands to add some users:
+echo '{"username":"usher", "password":"usher", "role":"user"}' | http :3000/signup
+echo '{"username":"eddie", "password":"eddie", "role":"editor"}' | http :3000/signup
+echo '{"username":"addie", "password":"addie", "role":"admin"}' | http :3000/signup
+echo '{"username":"susie", "password":"susie", "role":"superuser"}' | http :3000/signup
 
 superuser guy key:
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZjNzFkYjE3YTAwM2FhYjUyMjEyZiIsInR5cGUiOiJrZXkiLCJpYXQiOjE1NTQ2NDA4MzB9.lNpU_iMPXzIJtXVmRqACmmr2ZvPMUlY3R8QkuNQkKqE
@@ -28,7 +37,7 @@ const Role = require('./roles-model.js');
 router.post('/roles', (req,res,next) => {
   let role = new Role(req.body);
   role.save();
-  res.status(200).send('Saved a new role to the db');
+  res.status(200).send('Saved a new role to the db.');
 });
 
 // router.get('/public-stuff') should be visible by anyone
