@@ -22,7 +22,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTZiZDIwNzJkMjc0MzZmOTRkOWVkMyI
 
 http post :3000/signin "Authorization: Bearer token"
 
-http :3000/hidden-stuff "Authorization: Bearer 
+http :3000/hidden-stuff "Authorization: Bearer token"
 
 
 */
