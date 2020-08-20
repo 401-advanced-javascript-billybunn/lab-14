@@ -18,7 +18,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.4",
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",
